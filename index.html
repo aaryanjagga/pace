@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PACE - Know your money. Keep your pace.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-mood="peaceful">
+
+    <div id="app">
+        <!-- Desktop Sidebar -->
+        <aside class="sidebar" id="desktop-sidebar">
+            <div class="brand">
+                <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                PACE
+            </div>
+            <div class="tagline">Know your money.<br>Keep your pace.</div>
+            
+            <nav class="nav-links">
+                <div class="nav-item active" data-target="dashboard">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+                    Dashboard
+                </div>
+                <div class="nav-item" data-target="calendar">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    Calendar
+                </div>
+                <div class="nav-item" data-target="fixed">
+                    <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    Fixed Expenses
+                </div>
+                <div class="nav-item" data-target="budgets">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                    Budgets
+                </div>
+                <div class="nav-item" data-target="analytics">
+                    <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                    Analytics
+                </div>
+                <div class="nav-item" data-target="settings">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    Settings
+                </div>
+            </nav>
+
+            <button class="add-btn" onclick="openModal('addExpenseModal')">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Add Expense
+            </button>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content" id="main-content">
+            
+            <!-- VIEW: DASHBOARD -->
+            <section id="view-dashboard" class="view-section active">
+                <div class="dashboard-header">
+                    <div>
+                        <h2 class="text-muted font-medium" id="greeting">Good evening, User</h2>
+                        <div class="wallet-amount" id="dash-wallet-balance">₹0</div>
+                        <p class="text-muted" style="margin-top:4px"><span id="dash-spent-month">₹0</span> spent this month</p>
+                    </div>
+                    <div class="pace-score-container">
+                        <svg class="pace-score-svg" viewBox="0 0 100 100">
+                            <circle class="pace-score-bg" cx="50" cy="50" r="40"></circle>
+                            <circle class="pace-score-progress" cx="50" cy="50" r="40" stroke-dasharray="251.2" stroke-dashoffset="251.2" id="dash-pace-circle"></circle>
+                        </svg>
+                        <div class="pace-score-value" id="dash-pace-score">100</div>
+                        <div class="pace-score-label">PACE</div>
+                    </div>
+                </div>
+
+                <div class="mood-message" id="dash-mood-message">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <span>Your spending pace is healthy.</span>
+                </div>
+
+                <div class="grid-4" style="margin-top: 32px;">
+                    <div class="card stat-card">
+                        <span class="stat-label">Monthly Income</span>
+                        <span class="stat-value" id="dash-income">₹0</span>
+                    </div>
+                    <div class="card stat-card">
+                        <span class="stat-label">Fixed Expenses</span>
+                        <span class="stat-value" id="dash-fixed">₹0</span>
+                    </div>
+                    <div class="card stat-card">
+                        <span class="stat-label">Daily Expenses</span>
+                        <span class="stat-value" id="dash-daily">₹0</span>
+                    </div>
+                    <div class="card stat-card stat-safe">
+                        <span class="stat-label">Safe To Spend Today</span>
+                        <span class="stat-value" id="dash-safe">₹0</span>
+                    </div>
+                </div>
+
+                <div class="grid-2" style="margin-top: 32px;">
+                    <div class="card">
+                        <div class="list-header">
+                            <h3>Smart Insights</h3>
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                        </div>
+                        <ul id="dash-insights" style="display:flex; flex-direction:column; gap:16px;">
+                            <!-- JS will populate -->
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <div class="list-header">
+                            <h3>Recent Transactions</h3>
+                            <button class="action-btn text-sm font-medium" onclick="navTo('calendar')">View All</button>
+                        </div>
+                        <div id="dash-recent-tx">
+                            <!-- JS will populate -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: CALENDAR -->
+            <section id="view-calendar" class="view-section">
+                <div class="calendar-header">
+                    <div>
+                        <h1>September 2026</h1>
+                        <p class="text-muted" id="cal-subtitle">Tracking your daily pace</p>
+                    </div>
+                    <button class="add-btn" style="margin:0; padding:12px 20px;" onclick="openModal('addExpenseModal')">+ Add</button>
+                </div>
+                <div class="card">
+                    <div class="calendar-grid">
+                        <div class="calendar-day-header">MON</div>
+                        <div class="calendar-day-header">TUE</div>
+                        <div class="calendar-day-header">WED</div>
+                        <div class="calendar-day-header">THU</div>
+                        <div class="calendar-day-header">FRI</div>
+                        <div class="calendar-day-header">SAT</div>
+                        <div class="calendar-day-header">SUN</div>
+                        <!-- JS will populate days -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: FIXED EXPENSES -->
+            <section id="view-fixed" class="view-section">
+                <div class="calendar-header">
+                    <div>
+                        <h1>Fixed Commitments</h1>
+                        <p class="text-muted">Total: <span id="fixed-total-header" class="font-bold">₹0</span> / month</p>
+                    </div>
+                    <button class="add-btn" style="margin:0; padding:12px 20px;" onclick="openModal('addFixedModal')">+ New Fixed</button>
+                </div>
+                <div id="fixed-list">
+                    <!-- JS will populate -->
+                </div>
+            </section>
+
+            <!-- VIEW: BUDGETS -->
+            <section id="view-budgets" class="view-section">
+                <div class="calendar-header">
+                    <div>
+                        <h1>Budgets</h1>
+                        <p class="text-muted">Keep your categories in check</p>
+                    </div>
+                </div>
+                <div class="card" id="budgets-list">
+                    <!-- JS will populate -->
+                </div>
+            </section>
+
+            <!-- VIEW: ANALYTICS -->
+            <section id="view-analytics" class="view-section">
+                <div class="calendar-header">
+                    <div>
+                        <h1>Analytics</h1>
+                        <p class="text-muted">September 2026 Snapshot</p>
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>Spending by Category</h3>
+                        <div class="chart-container" id="analytics-chart">
+                            <!-- JS Chart -->
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>Summary</h3>
+                        <div style="margin-top:24px; display:flex; flex-direction:column; gap:16px;">
+                            <div style="display:flex; justify-content:space-between; padding-bottom:8px; border-bottom:1px solid var(--border)">
+                                <span class="text-muted">Total Income</span>
+                                <span class="font-bold" id="stat-tot-income">₹0</span>
+                            </div>
+                            <div style="display:flex; justify-content:space-between; padding-bottom:8px; border-bottom:1px solid var(--border)">
+                                <span class="text-muted">Total Expenses</span>
+                                <span class="font-bold" id="stat-tot-expenses">₹0</span>
+                            </div>
+                            <div style="display:flex; justify-content:space-between; padding-bottom:8px; border-bottom:1px solid var(--border)">
+                                <span class="text-muted">Savings</span>
+                                <span class="font-bold" id="stat-savings" style="color:var(--success)">₹0</span>
+                            </div>
+                            <div style="display:flex; justify-content:space-between; padding-bottom:8px; border-bottom:1px solid var(--border)">
+                                <span class="text-muted">Savings Rate</span>
+                                <span class="font-bold" id="stat-savings-rate">0%</span>
+                            </div>
+                            <div style="display:flex; justify-content:space-between;">
+                                <span class="text-muted">Highest Category</span>
+                                <span class="font-bold" id="stat-high-cat">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: SETTINGS -->
+            <section id="view-settings" class="view-section">
+                <h1>Settings</h1>
+                <div class="grid-2" style="margin-top:24px;">
+                    <div class="card">
+                        <h3>Profile & Income</h3>
+                        <form id="settingsForm" style="margin-top:20px;">
+                            <div class="form-group">
+                                <label class="form-label">Name</label>
+                                <input type="text" id="set-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Monthly Income (₹)</label>
+                                <input type="number" id="set-income" required min="0">
+                            </div>
+                            <button type="submit" class="btn-primary">Save Profile</button>
+                        </form>
+                    </div>
+                    <div class="card">
+                        <h3>Data Management</h3>
+                        <p class="text-muted text-sm" style="margin-top:8px; margin-bottom:20px;">PACE stores all data locally in your browser. Export it to back it up.</p>
+                        <div style="display:flex; flex-direction:column; gap:12px;">
+                            <button class="btn-primary" style="background:var(--surface); color:var(--text-main); border:1px solid var(--border)" onclick="exportData()">Export Data (JSON)</button>
+                            <button class="btn-primary" style="background:var(--danger);" onclick="clearData()">Clear All Data</button>
+                            <button class="btn-primary" style="background:var(--accent-soft); color:var(--accent);" onclick="loadDemoData()">Load Demo Data</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Mobile Bottom Nav -->
+        <nav class="mobile-nav">
+            <div class="mobile-nav-item active" data-target="dashboard">
+                <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+                Home
+            </div>
+            <div class="mobile-nav-item" data-target="calendar">
+                <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Calendar
+            </div>
+            <button class="fab" onclick="openModal('addExpenseModal')">
+                <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+            <div class="mobile-nav-item" data-target="fixed">
+                <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                Fixed
+            </div>
+            <div class="mobile-nav-item" data-target="analytics">
+                <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                Data
+            </div>
+        </nav>
+    </div>
+
+    <!-- Modals -->
+    <!-- Add Expense Modal -->
+    <div class="modal-overlay" id="addExpenseModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Add Transaction</h2>
+                <svg class="close-btn" onclick="closeModal('addExpenseModal')" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" fill="none" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </div>
+            <form id="expenseForm">
+                <div class="grid-2" style="gap:16px">
+                    <div class="form-group">
+                        <label class="form-label">Type</label>
+                        <select id="txType" required>
+                            <option value="expense">Expense</option>
+                            <option value="income">Income</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Amount (₹)</label>
+                        <input type="number" id="txAmount" required min="1">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <select id="txCategory" required>
+                        <option value="Food">Food & Dining</option>
+                        <option value="Transport">Transport</option>
+                        <option value="Shopping">Shopping</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Bills">Bills & Utilities</option>
+                        <option value="Health">Health</option>
+                        <option value="Personal">Personal</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="grid-2" style="gap:16px">
+                    <div class="form-group">
+                        <label class="form-label">Date (Sept 2026)</label>
+                        <input type="number" id="txDate" required min="1" max="30" placeholder="Day (1-30)" value="3">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Method</label>
+                        <select id="txMethod">
+                            <option value="UPI">UPI</option>
+                            <option value="Card">Card</option>
+                            <option value="Cash">Cash</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <input type="text" id="txDesc" required placeholder="What was this for?">
+                </div>
+                <button type="submit" class="btn-primary">Save Transaction</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Fixed Expense Modal -->
+    <div class="modal-overlay" id="addFixedModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Add Fixed Expense</h2>
+                <svg class="close-btn" onclick="closeModal('addFixedModal')" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" fill="none" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </div>
+            <form id="fixedForm">
+                <div class="form-group">
+                    <label class="form-label">Name</label>
+                    <input type="text" id="fixName" required placeholder="e.g. Rent, Netflix">
+                </div>
+                <div class="grid-2" style="gap:16px">
+                    <div class="form-group">
+                        <label class="form-label">Amount (₹)</label>
+                        <input type="number" id="fixAmount" required min="1">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Due Date (Day)</label>
+                        <input type="number" id="fixDate" required min="1" max="31">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <select id="fixCategory" required>
+                        <option value="Housing">Housing</option>
+                        <option value="Bills">Bills & Utilities</option>
+                        <option value="Subscriptions">Subscriptions</option>
+                        <option value="Insurance">Insurance</option>
+                        <option value="EMI">EMI / Loans</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary">Save Fixed Expense</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Day Detail Modal -->
+    <div class="modal-overlay" id="dayDetailModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="dayDetailTitle">Sept X, 2026</h2>
+                <svg class="close-btn" onclick="closeModal('dayDetailModal')" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" fill="none" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </div>
+            <p class="font-bold text-muted" style="margin-bottom:16px">Total: <span id="dayDetailTotal">₹0</span></p>
+            <div id="dayDetailList" style="max-height:300px; overflow-y:auto;">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toasts Container -->
+    <div class="toast-container" id="toast-container"></div>
+    <script src="script.js"></script>
+</body>
+</html>
